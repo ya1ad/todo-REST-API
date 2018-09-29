@@ -2,7 +2,7 @@ const joi = require("joi");
 const mongo = require("mongoose");
 
 const todoSchema = new mongo.Schema({
-  name: { type: String, required: true, maxlength: 255, minlength: 5 },
+  name: { type: String, maxlength: 255, minlength: 5, required: true },
   createAt: { type: Date, default: Date.now, required: true },
   isCompleted: { type: Boolean, required: true, default: false },
   completedAt: { type: Date }
@@ -15,8 +15,8 @@ function validate(todo) {
     name: joi
       .string()
       .min(5)
-      .max(255)
-      .required()
+      .max(255),
+    isCompleted: joi.boolean()
   };
   return joi.validate(todo, schema);
 }
